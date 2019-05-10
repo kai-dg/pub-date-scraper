@@ -5,7 +5,6 @@ Contains class responsible for sending GET request and saving data about URL.
 
 import requests
 from bs4 import BeautifulSoup
-
 import settings
 
 
@@ -22,7 +21,12 @@ class BaseParse:
         """
         Makes request and parses HTML with BeautifulSoup.
         """
-        response = requests.get(self.url, headers=settings.headers)
-        self.status = response.status_code
+        try:
+            response = requests.get(self.url, headers=settings.header,
+                                    allow_redirects=False)
+        except:
+            print("[ERROR] BaseParse object - Connection Error.")
+            return None
+
         html = response.content
         return BeautifulSoup(html, 'html.parser')
