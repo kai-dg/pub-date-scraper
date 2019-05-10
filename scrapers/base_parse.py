@@ -16,7 +16,7 @@ class BaseParse:
 
     def __init__(self, url):
         self.url = url
-        self.make_soup()
+        self.soup = self.make_soup()
 
     def make_soup(self):
         """
@@ -25,4 +25,4 @@ class BaseParse:
         response = requests.get(self.url, headers=settings.headers)
         self.status = response.status_code
         html = response.content
-        self.soup = BeautifulSoup(html, 'html.parser')
+        return BeautifulSoup(html, 'html.parser')
