@@ -13,6 +13,12 @@ Finds the publication dates on any websites as accurate as possible.
 
 ---
 
+## Example
+
+![demo0](https://i.imgur.com/w6gWhRr.png)
+
+---
+
 ## Authors
 * **Derrick Gee** - [kai-dg](https://github.com/kai-dg)
 * **Wescott Sharples** - [wescottsharples](https://github.com/wescottsharples)
