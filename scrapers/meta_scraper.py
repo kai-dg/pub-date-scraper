@@ -28,3 +28,5 @@ class MetaScraper:
         for tag in self.soup.find_all("time"):
             if tag.get("itemprop", None) == "dateCreated":
                 return tag.get("datetime", None)
+            if tag.get("itemprop", None) == "datePublished":
+                return tag.get("datetime", None)

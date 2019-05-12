@@ -12,24 +12,28 @@ def find_pub():
     Args:
         argv[1](str): url of the page you want to find the date in
     """
-    nd_counter = 0
     page = BaseParse(argv[1])
     if page.soup is None:
         return "[ERROR] Could not get request of the URL."
 
+    wayback = Wayback(argv[1])
     meta = MetaScraper(page.soup)
     meta_list = [meta.s_pub, meta.a_pub, meta.t_pub]
-    for i in meta_list:
-        if i is not None:
-            nd_counter += 1
-            print(i)
 
-    wayback = Wayback(argv[1])
-    print(wayback.wayback_time)
-
-    if nd_counter == 0:
-        print("Metadata: n.d. (No Date)")
-
+    if wayback.wayback_time:
+        print("\n======== Wayback =======")
+        print(wayback.wayback_time)
+        print("========================\n")
+    else:
+        print("\n========= Meta =========")
+        nd_counter = 0
+        for i in meta_list:
+            if i is not None:
+                nd_counter += 1
+                print(i)
+        if nd_counter == 0:
+            print("Metadata: n.d. (No Date)")
+        print("========================\n")
 
 if __name__ == "__main__":
     find_pub()
