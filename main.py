@@ -15,15 +15,18 @@ def find_date(res):
     Args:
         res(str): result from find_pub()
     """
-    curr = datetime.now().strftime("%Y-%m-%d").split("-")
-    res_d = re.search(r"(\d+-\d+-\d+)", str(res)).group(1).split("-")
+    if res:
+        curr = datetime.now().strftime("%Y-%m-%d").split("-")
+        res_d = re.search(r"(\d+-\d+-\d+)", str(res)).group(1).split("-")
 
-    d0 = date(int(curr[0]), int(curr[1]), int(curr[2]))
-    d1 = date(int(res_d[0]), int(res_d[1]), int(res_d[2]))
+        d0 = date(int(curr[0]), int(curr[1]), int(curr[2]))
+        d1 = date(int(res_d[0]), int(res_d[1]), int(res_d[2]))
 
-    delta = d0 - d1
+        delta = d0 - d1
 
-    return "This site is {} days old.\n".format(str(delta.days))
+        return "This site is {} days old.\n".format(str(delta.days))
+    else:
+        return "Could not find the date difference.\n"
 
 def find_pub():
     """Finds the publication date of the first argument
@@ -46,6 +49,7 @@ def find_pub():
         print(find_date(wayback.wayback_time))
     else:
         print("\n========= Meta =========")
+        temp = None
         nd_counter = 0
         for i in meta_list:
             if i is not None:
