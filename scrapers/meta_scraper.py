@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """meta_scraper"""
 from bs4 import BeautifulSoup
+import json
+import re
 
 class MetaScraper:
     """MetaScraper
@@ -13,6 +15,7 @@ class MetaScraper:
         self.s_pub = self.get_shareaholic()
         self.a_pub = self.get_article()
         self.t_pub = self.get_time()
+        self.l_pub = self.get_ldjson()
 
     def get_shareaholic(self):
         for tag in self.soup.find_all("meta"):
@@ -30,3 +33,11 @@ class MetaScraper:
                 return tag.get("datetime", None)
             if tag.get("itemprop", None) == "datePublished":
                 return tag.get("datetime", None)
+
+    def get_ldjson(self):
+        for tag in self.soup.find_all("script"):
+            if tag.get("type", None) == "application/ld+json":
+                d = json.loads(tag.text)
+                for k, v in d.items():
+                    if k == "datePublished":
+                        return v

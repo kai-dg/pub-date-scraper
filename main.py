@@ -40,7 +40,7 @@ def find_pub():
 
     wayback = Wayback(argv[1])
     meta = MetaScraper(page.soup)
-    meta_list = [meta.s_pub, meta.a_pub, meta.t_pub]
+    meta_list = [meta.s_pub, meta.a_pub, meta.t_pub, meta.l_pub]
 
     if wayback.wayback_time:
         print("\n======== Wayback =======")
